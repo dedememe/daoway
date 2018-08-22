@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>到位APP-上门服务商</title>
+    <link rel="shortcut icon" href="http://www.daoway.cn/pcimages/favicon.png">
+    <link rel="stylesheet" href="./less/fuwushang.css">
+    <title>服务商页面</title>
+</head>
+<body>
+<div class="fws-wraper">
+    <div class="header">
+        <div class="header-left">
+            <a href="javascript:;">
+                <img src="http://www.daoway.cn/pcimages/logo.png" alt="">
+            </a>
+        </div>
+        <div class="header-right">
+            <ul>
+                <li class="location">
+                    <a href="javascript:;">
+                        <img src="http://www.daoway.cn/pcimages/citypoint.png" alt="">
+                        东莞 切换城市</a>
+                </li>
+                <li class="firstPage">
+                    <a href="./index.html">首页</a>
+                </li>
+                <li class="">
+                    <a href="javascript:;">到位APP</a>
+                </li>
+                <li class="">
+                    <a class="active"  href="javascript:;">服务商</a>
+                </li>
+                <li class="">
+                    <a href="javascript:;">商家入驻</a>
+                </li>
+                <li class="aboutUs">
+                    <a href="javascript:;">关于我们</a>
+                </li>
+                <li class="shangjia">
+                    <a href="javascript:;">商家登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h2>服务商</h2>
+    <div class="fws">
+        <div class="fws-list">
+            <ul>
+                <div class="shops">
+
+                </div>
+            </ul>
+        </div>
+        <div class="fws-center">
+            <img src="http://daoway.cn/pcimages/tuijianfuwushang_03.jpg" alt="">
+            <div class="QRcode">
+                <img src="http://daoway.cn/pcimages/daowayApp.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="support">
+        <h2>到位
+            <i>服务</i>
+            保障
+        </h2>
+        <p>到位平台担保交易安全，交易未成功100%退款</p>
+    </div>
+    <div class="service">
+        <ul>
+            <li>
+                <img src="http://www.daoway.cn/pcimages/anquan.jpg" width="20" height="20">
+                优选服务
+            </li>
+            <li>
+                <img src="http://www.daoway.cn/pcimages/anquan.jpg" width="20" height="20">
+                全程保障
+            </li>
+            <li>
+                <img src="http://www.daoway.cn/pcimages/anquan.jpg" width="20" height="20">
+                安全无忧
+            </li>
+        </ul>
+    </div>
+    <div class="city">
+        <dl>
+            <dt>热门城市</dt>
+            <dd>
+                <div class="cities">
+
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="footer">
+        <p>©2015 版权所有 到位 daoway.com 京ICP备15001471号-1 北京邻家科技有限公司</p>
+    </div>
+</div>
+</body>
+<script id="shopList" type="text/html">
+{{each data as value i}}
+<li>
+    <a href="./xiangqing.html">
+        <img src="{{value.imgUrl}}" alt="">
+        <p class="p1">
+            <img id='icon'src="http://daoway.cn/pcimages/home1.png" alt="">
+            <b>{{value.title}}</b>
+        </p>
+        <p class="p2">
+            已接单{{value.orderCount}}单
+            <i>好评{{value.positiveRate}}</i>
+        </p>
+    </a>
+</li>
+{{/each}}
+</script>
+<script id="city" type="text/html">
+    {{each data as value i}}
+    <a href="javascript:;">{{value}}</a>
+    {{/each}}
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="./template.js"></script>
+<script type="text/javascript">
+    $(function () {
+      $.get('http://localhost:3000/service', function (data) {
+        let obj = {data}
+        const shopList = template('shopList', obj)
+        $('.shops').append(shopList)
+      })
+      $.get('http://localhost:3000/hotCity', function (data) {
+        let obj = {data}
+        console.log(obj + 'obj');
+        const cityList = template('city', obj)
+        $('.cities').append(cityList)
+      })
+
+      //  顶部的滚动与固定定位
+      var top1 = 200
+      var top2
+      $(window).scroll(function () {
+        console.log('滚动了');
+        top2 = $(this).scrollTop()
+        if(top2 > top1){
+          $('.header').addClass('on')
+        }else{
+          $('.header').removeClass('on')
+        }
+      })
+    })
+</script>
+</html>
